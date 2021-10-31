@@ -7,9 +7,11 @@ WHERE location like '%states%'
 order by 1, 2
 
 --Total Cases vs. Population
---Shows percentage of US population infected with covid
-Select location, date,total_cases, population, ROUND((total_cases/population)*100, 3) as InfectedPercentage
+--Shows countries highest population infected with covid
+
+Select location, population, MAX(total_cases) as HighestInfected, ROUND(MAX(total_cases)/population*100, 3) as InfectedPercentage
 From [Covid19-Data-Analysis]..covid_deaths
-WHERE location like '%states%'
-order by 1, 2
+--WHERE location like '%states%'
+Group by location, population
+order by 4 desc
 
